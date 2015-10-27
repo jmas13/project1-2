@@ -1,0 +1,73 @@
+*{
+  box-sizing: border-box;
+  position: relative;
+}
+.container{
+  margin:0 auto;
+  overflow: auto;
+
+}
+#player2_board{
+  max-width: 100%;
+  max-height: 25%;
+  border: 3px solid red;
+}
+#player2_deck{
+  margin: 0 auto;
+  width: 50px;
+  height: 50px;
+  box-sizing: border-box;
+  float: center;
+  border: 1px solid black;
+}
+#card_table{
+  max-width: 100%;
+  max-height: 30%;
+  border: 5px solid blue;
+
+}
+#player1_hand{
+float: left;
+width: 100px;
+height: 100px;
+border: 10px solid yellow;
+}
+#next_round{
+  margin: 0 auto;
+}
+#player2_hand{
+top: -28px;
+float: right;
+width: 100px;
+height: 100px;
+border: 10px solid green;
+
+}
+#result{
+  margin: 0 auto;
+  max-width: 200px;
+  height: 100px;
+  border: 2px solid purple;
+}
+.clearfix{
+  top: 0px;
+  overflow: auto;
+}
+#player1_board{
+  position: static;
+  bottom: 0px
+  max-width: 600px;
+  max-height: 200px;
+  border: 3px solid red;
+
+
+}
+#player1_deck{
+  margin: 0 auto;
+  width: 50px;
+  height: 50px;
+  box-sizing: border-box;
+  float: center;
+  border: 1px solid black;
+
+}
