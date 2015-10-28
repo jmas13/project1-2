@@ -42,55 +42,59 @@ setUp={
 
 // compare logic and gives cards or take cards
 var compare = {
-  playerOneCard: -1;
-  playerTwoCard: -1;
-  playerOneWar1: -1;
-  playerOneWar2: -1;
-  playerTwoWar1: -1;
-  playerTwoWar2: -1;
-  winner: [];
+  playerOneShowed:[],
+  playerTwoShowed: [],
   pullACard: function(){
-    playerOneCard=setUp.playerOneHand.pop();
-    var oneURL="cards-svg/"+playerOneCard+".svg";
+    // resets previously showed cards in memory
+    this.playerOneShowed.length=0;
+    this.playerTwoShowed.length=0;
+    // resets previously showed war cards
+    $('#player2_war1').css('background-image', 'none');
+    $('#player2_war2').css('background-image', 'none');
+    $('#player1_war1').css('background-image', 'none');
+    $('#player1_war2').css('background-image', 'none');
+
+
+    var playerOneCard=setUp.playerOneHand.pop();
+    var oneURL="css/cards-svg/"+playerOneCard+".svg";
     $('#player1_hand').css({
       'background-image': 'url('+oneURL+')',
       'background-size': 'contain'
     });
-
-    // $('#player1_hand').text(playerOneCard);
-    playerTwoCard=setUp.playerTwoHand.pop();
-    var twoURL="cards-svg/"+playerTwoCard+".svg";
+    this.playerOneShowed.push(playerOneCard);
+    console.log(this.playerOneShowed);
+    var playerTwoCard=setUp.playerTwoHand.pop();
+    var twoURL="css/cards-svg/"+playerTwoCard+".svg";
     $('#player2_hand').css({
       'background-image': 'url('+twoURL+')',
       'background-size': 'contain'
     });
+    this.playerTwoShowed.push(playerTwoCard);
+    console.log(this.playerTwoShowed);
+  // compare the cards drawn
+  this.showDown();
+  },
 
-    // $('#player2_hand').text(playerTwoCard);
-    console.log( setUp.playerOneHand );
-    console.log(setUp.playerTwoHand);
-    if(parseInt(playerOneCard)>parseInt(playerTwoCard)){
+  showDown: function(){
+    if(parseInt(this.playerOneShowed[0])>parseInt(this.playerTwoShowed[0])){
       $('#result').text("Player One Wins!");
-      setUp.playerOneHand.unshift(playerOneCard);
-      setUp.playerOneHand.unshift(playerTwoCard);
+      setUp.playerOneHand.unshift(this.playerOneShowed[0]);
+      setUp.playerOneHand.unshift(this.playerTwoShowed[0]);
 
     }
-    if(parseInt(playerOneCard)<parseInt(playerTwoCard)){
+    if(parseInt(this.playerOneShowed[0])<parseInt(this.playerTwoShowed[0])){
       $('#result').text("Player Two Wins!");
-      setUp.playerTwoHand.unshift(playerOneCard);
-      setUp.playerTwoHand.unshift(playerTwoCard);
+      setUp.playerTwoHand.unshift(this.playerOneShowed[0]);
+      setUp.playerTwoHand.unshift(this.playerTwoShowed[0]);
     }
     // when the card values are tie, and either side has more than 2 cards in thier decks
-    else if(setUp.playerOneHand.length>3 && setUp.playerTwoHand.length>3){
+    if((setUp.playerOneHand.length>2||setUp.playerTwoHand.length>2)&&(parseInt(this.playerOneShowed[0])==parseInt(this.playerTwoShowed[0]))){
       $('#result').text("WAAAAAAAAAR!");
-      playerOneWar1=setUp.playerOneHand.pop();
-      // assign to html tag to display a card
-      playerOneWar2=setUp.playerOneHand.pop();
-      // assign to html tag to display a card
-      playerTwoWar1=setUp.playerTwoHand.pop();
-      // assign to html tag to display a card
-      playerTwoWar2=setUp.playerTwoHand.pop();
-      // assign to html tag to display a card
-      }
+      // 1. pull wards
+      this.pullWarCards();
+      // 2. compare warcards
+      this.warShowDown();
+    }
       // when either side has less than 2 cards in their deck.
     else if(setUp.playerOneHand.length<2){
         $('#result').text("Player One Lost");
@@ -98,9 +102,77 @@ var compare = {
     else if (setUp.playerTwoHand.length<2) {
         $('#result').text("Player Two Lost");
       }
+    },
 
-// function closing
-    }
+    pullWarCards: function(){
+    // player1 pulling war cards
+      var playerOneWar1=setUp.playerOneHand.pop();
+      var tempURL="css/cards-svg/"+playerOneWar1+".svg";
+      $('#player1_war1').css({
+        'background-image': 'url('+tempURL+')',
+        'background-size': 'contain'
+      });
+      this.playerOneShowed.push(playerOneWar1);
+
+      var playerOneWar2=setUp.playerOneHand.pop();
+      var temp2URL="css/cards-svg/"+playerOneWar2+".svg";
+      $('#player1_war2').css({
+        'background-image': 'url('+temp2URL+')',
+        'background-size': 'contain'
+      });
+      this.playerOneShowed.push(playerOneWar2);
+      console.log(this.playerOneShowed);
+    // player2 pulling war cards
+      var playerTwoWar1=setUp.playerTwoHand.pop();
+      var tempURL2="css/cards-svg/"+playerTwoWar1+".svg";
+      $('#player2_war1').css({
+        'background-image': 'url('+tempURL2+')',
+        'background-size': 'contain'
+      });
+      this.playerTwoShowed.push(playerTwoWar1);
+
+      var playerTwoWar2=setUp.playerTwoHand.pop();
+      var temp2URL2="css/cards-svg/"+playerTwoWar2+".svg";
+      $('#player2_war2').css({
+        'background-image': 'url('+temp2URL2+')',
+        'background-size': 'contain'
+      });
+      this.playerTwoShowed.push(playerTwoWar2);
+      console.log(this.playerTwoShowed);
+    },
+
+    warShowDown: function(){
+      for(var i=2; i>0; i--){
+          if(parseInt(this.playerOneShowed[i])>parseInt(this.playerTwoShowed[i])){
+            $('#result').text("Player One Won!");
+            for(var v=0; v<3; v++){
+              setUp.playerOneHand.unshift(this.playerOneShowed[v]);
+              setUp.playerOneHand.unshift(this.playerTwoShowed[v]);
+            }
+            break;
+          }
+          if(parseInt(this.playerOneShowed[i])<parseInt(this.playerTwoShowed[i])){
+            $('#result').text("Player Two Won!");
+            for(var v=0;v<3; v++){
+              setUp.playerTwoHand.unshift(this.playerOneShowed[v]);
+              setUp.playerTwoHand.unshift(this.playerTwoShowed[v]);
+            }
+            break;
+          }
+          else if(parseInt(this.playerOneShowed[0])=parseInt(this.playerTwoShowed[0])){
+            $('#result').text("Player One Won!");
+            for(var v=0; v<3; v++){
+              setUp.playerOneHand.unshift(this.playerOneShowed[v]);
+              setUp.playerOneHand.unshift(this.playerTwoShowed[v]);
+            }
+
+            break;
+
+          }
+        }
+      }
+
+
 //var compare closing
 }
 
@@ -111,8 +183,6 @@ $('#start_button').on("click", function(){setUp.createCards(); setUp.shuffle();
 // when a player clicks 'next round' button, it will pull a card from players decks
 // and compare values and assign to the winner
 $('#next_round').on("click", function(){compare.pullACard();})
-console.log(setUp.playerOneHand);
-console.log(setUp.playerTwoHand);
 // display number of cards players have
 $("#player1_deck").hover(function(){
   $("#player1_deck").text(setUp.playerOneHand.length);
