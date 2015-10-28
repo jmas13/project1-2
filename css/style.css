@@ -7,46 +7,65 @@
   overflow: auto;
 
 }
+.test{
+  height: 200px;
+  width: 200px;
+  background-image: url(cards-svg/2C.svg);
+  /*background-size: contain;*/
+}
+#start_button{
+  position: absolute;
+  top: 15%;
+  left: 15%;
+  height: 50%;
+  width: 50%;
+}
 #player2_board{
-  max-width: 100%;
-  max-height: 25%;
+  width: 100%;
+  height: 25%;
   border: 3px solid red;
 }
 #player2_deck{
   margin: 0 auto;
-  width: 50px;
-  height: 50px;
+  width: 143px;
+  height: 200px;
   box-sizing: border-box;
   float: center;
   border: 1px solid black;
 }
 #card_table{
-  max-width: 100%;
-  max-height: 30%;
+  width: 100%;
+  height: 50%;
   border: 5px solid blue;
 
 }
 #player1_hand{
 float: left;
-width: 100px;
-height: 100px;
+width: 143px;
+height: 200px;
 border: 10px solid yellow;
 }
 #next_round{
+  position: absolute;
   margin: 0 auto;
+  width: 100px;
+  height: 50px;
+  top: 10%;
+  left: 45%;
 }
 #player2_hand{
-top: -28px;
 float: right;
-width: 100px;
-height: 100px;
+width: 143px;
+height: 200px;
 border: 10px solid green;
 
 }
 #result{
-  margin: 0 auto;
-  max-width: 200px;
-  height: 100px;
+  position:absolute;
+  top: 40%;
+  left: 40%;
+  width: 200px;
+  height: 50px;
   border: 2px solid purple;
 }
 .clearfix{
@@ -56,18 +75,45 @@ border: 10px solid green;
 #player1_board{
   position: static;
   bottom: 0px
-  max-width: 600px;
-  max-height: 200px;
+  width:100%;
+  height: 25%;
   border: 3px solid red;
 
 
 }
 #player1_deck{
   margin: 0 auto;
-  width: 50px;
-  height: 50px;
-  box-sizing: border-box;
+  width: 143px;
+  height: 200px;
   float: center;
   border: 1px solid black;
+
+}
+#player1_war1{
+  width: 143px;
+  height: 200px;
+  border: 1px solid black;
+  float: left;
+
+}
+#player1_war2{
+  width: 143px;
+  height: 200px;
+  border: 1px solid black;
+  float: right;
+
+}
+#player2_war1{
+  width: 143px;
+  height: 200px;
+  border: 1px solid black;
+  float: left;
+
+}
+#player2_war2{
+  width: 143px;
+  height: 200px;
+  border: 1px solid black;
+  float: right;
 
 }
