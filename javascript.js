@@ -89,7 +89,8 @@ var compare = {
     }
     // when the card values are tie, and either side has more than 2 cards in thier decks
     if((setUp.playerOneHand.length>2||setUp.playerTwoHand.length>2)&&(parseInt(this.playerOneShowed[0])==parseInt(this.playerTwoShowed[0]))){
-      $('#result').text("WAAAAAAAAAR!");
+      // setInterval(function(){$('#sparta').css("display", "block")}, 5000);
+      // $('#sparta').css("  background-image", 'url('https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Cleomenes_War_detail_1.svg/2000px-Cleomenes_War_detail_1.svg.png');
       // 1. pull wards
       this.pullWarCards();
       // 2. compare warcards
@@ -185,10 +186,10 @@ $('#start_button').on("click", function(){setUp.createCards(); setUp.shuffle();
 $('#next_round').on("click", function(){compare.pullACard();})
 // display number of cards players have
 $("#player1_deck").hover(function(){
-  $("#player1_deck").text(setUp.playerOneHand.length);
+  $("#player1").text(setUp.playerOneHand.length);
 })
 $("#player2_deck").hover(function(){
-  $("#player2_deck").text(setUp.playerTwoHand.length);
+  $("#player2").text(setUp.playerTwoHand.length);
 })
 
 })
