@@ -46,7 +46,7 @@ var compare = {
   playerTwoShowed: [],
   pullACard: function(){
     // resets previously showed cards in memory
-    this.playerOneShowed.length=0;
+    this.playerOneShowed.length=0;  //jsm: what do you mean by reset in memory?
     this.playerTwoShowed.length=0;
     // resets previously showed war cards
     $('#player2_war1').css('background-image', 'none');
@@ -160,7 +160,7 @@ var compare = {
             }
             break;
           }
-          else if(parseInt(this.playerOneShowed[0])=parseInt(this.playerTwoShowed[0])){
+          else if(parseInt(this.playerOneShowed[0])=parseInt(this.playerTwoShowed[0])){ //jsm: Is this meant to be checking equality?
             $('#result').text("Player One Won!");
             for(var v=0; v<3; v++){
               setUp.playerOneHand.unshift(this.playerOneShowed[v]);
@@ -174,12 +174,12 @@ var compare = {
       }
 
 
-//var compare closing
+//var compare closing // jsm: be sure to remove commented out code
 }
 
 
 // when a player clicks start button, the system creates two decks for two players
-$('#start_button').on("click", function(){setUp.createCards(); setUp.shuffle();
+$('#start_button').on("click", function(){setUp.createCards(); setUp.shuffle(); // jsm: could the attachment of all of these listeners happen inside a method of setUp?
   setUp.splitTwo(); $('#start_button').css("display", "none")});
 // when a player clicks 'next round' button, it will pull a card from players decks
 // and compare values and assign to the winner
